@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sound Grid – Cris Counter</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;900&display=swap" rel="stylesheet">
+  <style>
+    :root { --tile-radius: 1.25rem; }
+    .title-font { font-family: 'Nunito', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji', sans-serif; }
+    .glass { backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); background: rgba(255,255,255,.16); }
+  </style>
+</head>
+<body class="min-h-dvh bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
+  <main class="relative mx-auto max-w-4xl px-4 py-6 sm:py-8">
+    <!-- Barre supérieure -->
+    <header class="flex items-center justify-between gap-3">
+      <h1 class="title-font text-2xl sm:text-3xl font-extrabold tracking-tight">Screamboard</h1>
+      <div class="flex items-center gap-2">
+        <button id="resetBtn" class="rounded-xl px-3 py-2 text-sm font-semibold text-white/90 border border-white/15 hover:bg-white/10 transition">Réinitialiser</button>
+        <a href="#howto" class="rounded-xl px-3 py-2 text-sm font-semibold text-white/90 border border-white/15 hover:bg-white/10 transition">Aide</a>
+      </div>
+    </header>
+
+    <!-- Compteur flottant -->
+    <div class="relative mt-6">
+      <div class="absolute inset-x-0 -top-4 flex justify-center pointer-events-none">
+        <div class="glass rounded-full px-4 py-1.5 text-sm font-bold text-white shadow-lg border border-white/10" id="counterBadge">
+          <span id="crisTotal">0</span>&nbsp;cris
+        </div>
+      </div>
+    </div>
+
+    <!-- Avatar central -->
+    <div class="mt-10 mb-6 flex justify-center">
+      <div class="relative">
+        <img src="https://images.unsplash.com/photo-1544006659-f0b21884ce1d?q=80&w=256&auto=format&fit=crop" alt="Animateur" class="size-24 sm:size-28 rounded-full ring-4 ring-white/10 shadow-xl object-cover select-none" />
+        <div class="absolute -right-2 -bottom-2 bg-emerald-500 text-slate-900 text-xs font-extrabold px-2 py-0.5 rounded-full shadow">LIVE</div>
+      </div>
+    </div>
+
+    <!-- Grille des cartes -->
+    <section id="grid" class="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
+      <!-- Chaque carte a data-key (id unique) et data-sound (fichier optionnel) -->
+      <!-- Astuce : remplace data-sound par le chemin de ton MP3/WAV si tu veux un vrai son -->
+
+      <button class="tile group aspect-square rounded-[var(--tile-radius)] p-4 sm:p-5 text-left focus:outline-none focus-visible:ring-4 focus-visible:ring-white/30 relative overflow-hidden" 
+              style="background:linear-gradient(135deg,#fbbf24,#f59e0b)" data-key="plus-loin">
+        <span class="title-font text-2xl sm:text-3xl font-black drop-shadow group-active:scale-95 transition origin-left">PLUS LOIN</span>
+        <span class="absolute bottom-2 right-3 text-[10px] sm:text-xs font-bold opacity-80">Appuie ▶</span>
+      </button>
+
+      <button class="tile group aspect-square rounded-[var(--tile-radius)] p-4 sm:p-5 text-left focus:outline-none focus-visible:ring-4 focus-visible:ring-white/30 relative overflow-hidden" 
+              style="background:linear-gradient(135deg,#34d399,#10b981)" data-key="je-hurle">
+        <span class="title-font text-2xl sm:text-3xl font-black drop-shadow group-active:scale-95 transition origin-left">JE HURLE</span>
+        <span class="absolute bottom-2 right-3 text-[10px] sm:text-xs font-bold opacity-80">Appuie ▶</span>
+      </button>
+
+      <button class="tile group aspect-square rounded-[var(--tile-radius)] p-4 sm:p-5 text-left focus:outline-none focus-visible:ring-4 focus-visible:ring-white/30 relative overflow-hidden" 
+              style="background:linear-gradient(135deg,#60a5fa,#3b82f6)" data-key="poule-pondeuse">
+        <span class="title-font text-2xl sm:text-3xl font-black drop-shadow group-active:scale-95 transition origin-left">POULE<br/>PONDEUSE</span>
+        <span class="absolute bottom-2 right-3 text-[10px] sm:text-xs font-bold opacity-80">Appuie ▶</span>
+      </button>
+
+      <button class="tile group aspect-square rounded-[var(--tile-radius)] p-4 sm:p-5 text-left focus:outline-none focus-visible:ring-4 focus-visible:ring-white/30 relative overflow-hidden" 
+              style="background:linear-gradient(135deg,#f472b6,#ec4899)" data-key="cri-du-cochon">
+        <span class="title-font text-2xl sm:text-3xl font-black drop-shadow group-active:scale-95 transition origin-left">CRI DU<br/>COCHON</span>
+        <span class="absolute bottom-2 right-3 text-[10px] sm:text-xs font-bold opacity-80">Appuie ▶</span>
+      </button>
+
+      <button class="tile group aspect-square rounded-[var(--tile-radius)] p-4 sm:p-5 text-left focus:outline-none focus-visible:ring-4 focus-visible:ring-white/30 relative overflow-hidden" 
+              style="background:linear-gradient(135deg,#a78bfa,#8b5cf6)" data-key="salope">
+        <span class="title-font text-2xl sm:text-3xl font-black drop-shadow group-active:scale-95 transition origin-left">S******</span>
+        <span class="absolute bottom-2 right-3 text-[10px] sm:text-xs font-bold opacity-80">Appuie ▶</span>
+      </button>
+
+      <button class="tile group aspect-square rounded-[var(--tile-radius)] p-4 sm:p-5 text-left focus:outline-none focus-visible:ring-4 focus-visible:ring-white/30 relative overflow-hidden" 
+              style="background:linear-gradient(135deg,#fb7185,#f43f5e)" data-key="coton">
+        <span class="title-font text-2xl sm:text-3xl font-black drop-shadow group-active:scale-95 transition origin-left">100% COTON</span>
+        <span class="absolute bottom-2 right-3 text-[10px] sm:text-xs font-bold opacity-80">Appuie ▶</span>
+      </button>
+    </section>
+
+    <!-- Aide / How-to -->
+    <section id="howto" class="mt-10 text-white/80 text-sm leading-relaxed space-y-2">
+      <h2 class="title-font text-lg font-extrabold text-white">Aide</h2>
+      <p>• Clique sur une carte pour jouer un son et incrémenter le compteur <strong>« cris »</strong>. Tout est sauvegardé dans <em>localStorage</em> (persiste après rechargement).</p>
+      <p>• Pour utiliser de vrais sons, ajoute un attribut <code>data-sound="/sons/mon-son.mp3"</code> sur la carte (voir l’objet <code>soundMap</code> dans le script), ou laisse vide pour un beep synthétisé.</p>
+      <p>• Le bouton « Réinitialiser » remet les compteurs à zéro.</p>
+    </section>
+  </main>
+
+  <script>
+    // --- Persistence ---------------------------------------------------------
+    const STORAGE_TOTAL = 'cris_total_v1';
+    const STORAGE_PER   = 'cris_by_key_v1';
+
+    const $total = document.getElementById('crisTotal');
+    const $reset = document.getElementById('resetBtn');
+    const $grid  = document.getElementById('grid');
+
+    const state = {
+      total: Number(localStorage.getItem(STORAGE_TOTAL) || 0),
+      per: JSON.parse(localStorage.getItem(STORAGE_PER) || '{}')
+    };
+
+    function save() {
+      localStorage.setItem(STORAGE_TOTAL, String(state.total));
+      localStorage.setItem(STORAGE_PER, JSON.stringify(state.per));
+    }
+
+    function render() {
+      $total.textContent = state.total.toLocaleString('fr-FR');
+    }
+
+    render();
+
+    // --- Audio engine -------------------------------------------------------
+    // 1) Map de sons personnalisables (par key) – valeur = URL du fichier
+    const soundMap = {
+     'plus-loin': 'plus loin.mp3',
+     'poule-pondeuse': 'poule.mp3',
+        'je-hurle': 'je hurle.mp3',
+        'cri-du-cochon': 'cochon.mp3',
+        'salope': 'salope.mp3',
+        'coton': 'coton.mp3',
+    };
+
+    // 2) Fallback: beep WebAudio si pas d'URL fourni
+    let audioCtx;
+    function beep(duration = 180, freq = 520) {
+      audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+      const o = audioCtx.createOscillator();
+      const g = audioCtx.createGain();
+      o.type = 'square';
+      o.frequency.value = freq;
+      o.connect(g); g.connect(audioCtx.destination);
+      g.gain.setValueAtTime(0.001, audioCtx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.5, audioCtx.currentTime + 0.01);
+      o.start();
+      setTimeout(() => { g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05); o.stop(); }, duration);
+      // vibration légère si supportée
+      if (navigator.vibrate) navigator.vibrate(12);
+    }
+  const players = {}; // { key: HTMLAudioElement }
+
+   function playSound(key) {
+    const url = soundMap[key];
+
+    // Si on a déjà un player pour cette carte, on le réinitialise
+    if (players[key]) {
+      const a = players[key];
+      a.pause();
+      a.currentTime = 0;          // coupe le son en cours et repart du début
+      a.play().catch(() => beep());
+      return;
+    }
+
+    // Sinon on crée le player et on l'enregistre pour les prochains clics
+    if (url) {
+      const a = new Audio(url);
+      a.preload = "auto";
+      players[key] = a;
+
+      // Premier play
+      a.currentTime = 0;
+      a.play().catch(() => beep());
+    } else {
+      // Pas d'URL → beep de secours
+      beep(110, 620);
+      setTimeout(() => beep(140, 480), 120);
+    }
+  }
+
+    // --- Interactions -------------------------------------------------------
+    $grid.addEventListener('click', (e) => {
+      const btn = e.target.closest('button[data-key]');
+      if (!btn) return;
+      const key = btn.dataset.key;
+
+      // visuel : pulse
+      btn.classList.add('ring-4','ring-white/40');
+      setTimeout(() => btn.classList.remove('ring-4','ring-white/40'), 120);
+
+      // audio
+      playSound(key);
+
+      // compteur
+      state.total += 1;
+      state.per[key] = (state.per[key] || 0) + 1;
+      save();
+      render();
+    });
+
+    $reset.addEventListener('click', () => {
+      if (!confirm('Remettre les compteurs à zéro ?')) return;
+      state.total = 0; state.per = {}; save(); render();
+    });
+
+    // Accessibilité clavier
+    document.querySelectorAll('.tile').forEach(el => {
+      el.setAttribute('role','button');
+      el.setAttribute('tabindex','0');
+      el.addEventListener('keydown', (ev) => {
+        if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); el.click(); }
+      });
+    });
+  </script>
+</body>
+</html>
